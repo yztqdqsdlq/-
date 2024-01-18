@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example01.mapper.UserInfoMapper">
+
+    <resultMap id="BaseResultMap" type="com.example01.entity.UserInfo">
+            <id property="userId" column="user_id" jdbcType="INTEGER"/>
+            <result property="username" column="username" jdbcType="VARCHAR"/>
+            <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="gender" column="gender" jdbcType="CHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="phoneNumber" column="phone_number" jdbcType="CHAR"/>
+            <result property="lastLoginTime" column="last_login_time" jdbcType="TIMESTAMP"/>
+            <result property="enable" column="enable" jdbcType="CHAR"/>
+            <result property="createDate" column="create_date" jdbcType="TIMESTAMP"/>
+            <result property="updateDate" column="update_date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <resultMap id="BaseResultMapPermission" type="com.example01.entity.Permission">
+        <id property="permissionId" column="permission_id" jdbcType="INTEGER"/>
+        <result property="permissionName" column="permission_name" jdbcType="VARCHAR"/>
+        <result property="url" column="url" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_id,username,password,
+        gender,email,phone_number,
+        last_login_time,enable,create_date,
+        update_date
+    </sql>
+    <select id="readPermissionByUsername" resultMap="BaseResultMapPermission">
+        SELECT t4.permission_id, t4.permission_name, t4.url
+        FROM t_user_info t1
+                 INNER JOIN t_user_role t2 ON t1.user_id = t2.user_id
+                 INNER JOIN t_role_permission t3 ON t2.role_id = t3.role_id
+                 INNER JOIN t_permission t4 ON t3.permission_id = t4.permission_id
+        WHERE t1.username = #{username}
+    </select>
+    <select id="test" resultType="java.lang.Long">
+        select coung(*)
+        from t_user_info
+        left join (
+            SELECT #{list[0]}
+        )
+    </select>
+</mapper>

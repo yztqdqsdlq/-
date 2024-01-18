@@ -1,0 +1,22 @@
+server:
+  port: 7200
+spring:
+  application:
+    name: lq-java
+  datasource:
+    password: root
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/big_data_analysis_platform?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+  data:
+    redis:
+      host: 192.168.154.128
+      port: 6379
+      database: 0
+  mail:
+    host: smtp.163.com
+    username: 17796758426@163.com
+    password: TLXCXORCHURQEMKZ
+logging:
+  level:
+    com.example01.mapper: debug
